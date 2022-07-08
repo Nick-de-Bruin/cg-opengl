@@ -13,6 +13,9 @@ const int WIDTH = 800, HEIGHT = 600;
 unsigned const int DELTA_TIME = 10;
 
 GLuint program_id;
+Scene scene;
+
+// TODO: Create and render current scene
 
 int main(int argc, char** argv)
 {
