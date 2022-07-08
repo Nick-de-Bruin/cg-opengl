@@ -9,9 +9,7 @@
 
 #include "glsl.h"
 #include "objloader.h"
-
-using namespace std;
-
+#include "Scene.h"
 
 //--------------------------------------------------------------------------------
 // Consts
@@ -25,7 +23,7 @@ const char* vertexshader_name = "vertexshader.vert";
 unsigned const int DELTA_TIME = 10;
 
 //--------------------------------------------------------------------------------
-// Variables
+// Structs
 //--------------------------------------------------------------------------------
 struct Lightsource
 {
@@ -50,6 +48,9 @@ GLuint vao;
 // Uniform ID's
 GLuint uniform_mv;
 
+// Scene
+Scene scene;
+
 // Matrices
 glm::mat4 model, view, projection;
 glm::mat4 mv;
@@ -66,6 +67,8 @@ Materials materials;
 // Keyboard handling
 //--------------------------------------------------------------------------------
 
+// TODO: Break this out into new class with ability 
+// to set and change keys
 void keyboardHandler(unsigned char key, int a, int b)
 {
     if (key == 27)
@@ -76,27 +79,36 @@ void keyboardHandler(unsigned char key, int a, int b)
 //--------------------------------------------------------------------------------
 // Rendering
 //--------------------------------------------------------------------------------
-
+// Keep but move some things out -> And move to new class
 void Render()
 {
+    // The background color of the window
     glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    // Clears the specified buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Attach to program_id
+    // Attach to specified program
     glUseProgram(program_id);
 
-    // Do transformation
+    // Do transformation of the model. Should be changed
+    // We probably want to change the view (?) based on keyboard
+    // inputs. We can just save the camera position for switching
+    // cameras in a variable -> Or we could point to different
+    // memory by saving a pointer
     model = glm::rotate(model, 0.01f, glm::vec3(0.2f, 1.0f, 0.5f));
     mv = view * model;
 
     // Send mvp
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
 
-    // Send vao
+    // Change this to send all VAOs?
+    // Or just render all of them with a single Render() method
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     glBindVertexArray(0);
 
+    // Keep swap to swap buffers, otherwise nothing is rendered
     glutSwapBuffers();
 }
 
@@ -105,7 +117,6 @@ void Render()
 // void Render(int n)
 // Render method that is called by the timer function
 //------------------------------------------------------------
-
 void Render(int n)
 {
     Render();
@@ -114,56 +125,51 @@ void Render(int n)
 
 
 //------------------------------------------------------------
-// void InitGlutGlew(int argc, char **argv)
-// Initializes Glut and Glew
-//------------------------------------------------------------
-
-void InitGlutGlew(int argc, char** argv)
-{
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Hello OpenGL");
-    glutDisplayFunc(Render);
-    glutKeyboardFunc(keyboardHandler);
-    glutTimerFunc(DELTA_TIME, Render, 0);
-
-    glewInit();
-}
-
-
-//------------------------------------------------------------
 // void InitShaders()
 // Initializes the fragmentshader and vertexshader
 //------------------------------------------------------------
-
+// Move to models
 void InitShaders()
 {
+    // Move shaders to a more generic construct (ENUM or something
+    // similar? maybe even just classes)
     char* vertexshader = glsl::readFile(vertexshader_name);
     GLuint vsh_id = glsl::makeVertexShader(vertexshader);
 
     char* fragshader = glsl::readFile(fragshader_name);
     GLuint fsh_id = glsl::makeFragmentShader(fragshader);
 
-    program_id = glsl::makeShaderProgram(vsh_id, fsh_id);
+    glAttachShader(program_id, vsh_id);
+
+    // Shader can be really simple, only giving colour or something
+    // Can probably use one generic shader
+    glAttachShader(program_id, fsh_id);
+
+    glLinkProgram(program_id);
 }
 
 
 //------------------------------------------------------------
 // void InitMatrices()
 //------------------------------------------------------------
-
+// Move to camera class 
 void InitMatrices()
 {
     model = glm::mat4();
+
     view = glm::lookAt(
         glm::vec3(2.0, 2.0, 7.0),  // eye
+        // If we want to move the camera around we need to
+        // change the center?
         glm::vec3(0.0, 0.0, 0.0),  // center
         glm::vec3(0.0, 1.0, 0.0));  // up
+
     projection = glm::perspective(
         glm::radians(45.0f),
-        1.0f * WIDTH / HEIGHT, 0.1f,
+        1.0f * WIDTH / HEIGHT, 
+        0.1f,
         20.0f);
+
     mv = view * model;
 }
 
@@ -171,21 +177,27 @@ void InitMatrices()
 // void InitMaterials()
 // Allocates and fills buffers
 //------------------------------------------------------------
+// Move to light class
 void InitMaterialLight()
 {
+    // Adds a single light to a pos
+    // refactor this per object
     light.position = glm::vec3(4.0, 4.0, 4.0);
 
+    // Sets the materials of the light
+    // refactor this per object
     materials.ambient_color = glm::vec3(0.2, 0.2, 0.1);
     materials.diffuse_color = glm::vec3(0.5, 0.5, 0.5);
-    materials.specular = glm::vec3(0.5, 0.5, 0.5);
-    materials.specular_power = 1.0;
+    materials.specular = glm::vec3(1, 0, 1);
+    materials.specular_power = 10.0;
 }
 
 //------------------------------------------------------------
 // void InitBuffers()
 // Allocates and fills buffers
 //------------------------------------------------------------
-
+// Move to objects
+// Except maybe the 
 void InitBuffers()
 {
     GLuint position_id, normal_id;
@@ -234,8 +246,7 @@ void InitBuffers()
     // Stop bind to vao
     glBindVertexArray(0);
 
-    // Make uniform vars
-    // uniform_mvp = glGetUniformLocation(program_id, "mvp");
+    // Make uniform vars -> They are for _everything_
     uniform_mv = glGetUniformLocation(program_id, "mv");
     GLuint uniform_proj = glGetUniformLocation(program_id, "projection");
     GLuint uniform_light_pos = glGetUniformLocation(program_id, "light_pos");
@@ -249,12 +260,11 @@ void InitBuffers()
         program_id, "mat_power");
 
     // Define model
-    // mvp = projection * view * model;
+    // mv = view * model;
     mv = view * model;
 
     // Send uniform vars
     glUseProgram(program_id);
-    // glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mvp));
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
     glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
     glUniform3fv(uniform_light_pos, 1, glm::value_ptr(light.position));
@@ -268,21 +278,40 @@ void InitBuffers()
 // void InitObjects()
 // Initializes objects
 //------------------------------------------------------------
-
+// Move into objects
 void InitObjects()
 {
-    bool res = loadOBJ("teapot.obj", vertices, uvs, normals);
+    loadOBJ(
+        "teapot.obj", 
+        vertices, 
+        uvs,
+        normals
+    );
 }
 
 
 int main(int argc, char** argv)
 {
-    InitGlutGlew(argc, argv);
-    InitMaterialLight();
-    InitObjects();
-    InitShaders();
-    InitMatrices();
-    InitBuffers();
+    // Initialize GLUT
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    
+    glutInitWindowSize(WIDTH, HEIGHT);
+    glutCreateWindow("OpenGL Final Nick de Bruin s1141131");
+    
+    glutDisplayFunc(Render);
+    glutKeyboardFunc(keyboardHandler); // TODO: Use other keyboard handler
+    glutTimerFunc(DELTA_TIME, Render, 0);
+
+    glewInit();
+
+    program_id = glCreateProgram();
+
+    InitMaterialLight(); // Remove
+    InitObjects(); // Remove
+    InitShaders(); // Remove
+    InitMatrices(); // Remove
+    InitBuffers(); // Remove (?)
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);

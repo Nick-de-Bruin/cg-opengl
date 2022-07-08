@@ -30,5 +30,6 @@ void main()
 
     // Write final color to the framebuffer
     gl_FragColor = vec4(mat_ambient + diffuse + specular, 1.0);
-    gl_FragColor = vec4(mat_ambient + diffuse, 1.0);
+    // gl_FragColor = vec4(mat_ambient + diffuse, 1.0);
+    // gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }
