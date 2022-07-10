@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{5f5572c1-7adf-4da8-8565-f19d520134e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Meshes">
+      <UniqueIdentifier>{3cd2e362-9197-41a3-bdac-bc237b22c1e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Meshes">
+      <UniqueIdentifier>{0d30fa24-d449-446f-ac1f-62c4e73ab5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Fragment Shaders">
+      <UniqueIdentifier>{c1d27311-0fb3-4229-8f79-f21a46ebfe69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Vertex Shaders">
+      <UniqueIdentifier>{ffa96c43-6c11-45c4-91c5-ea5b57a28427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{72076aa4-f2d0-4eb7-a50f-8081f69e788c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,8 +42,20 @@
     <ClCompile Include="objloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
+    <ClCompile Include="KeyboardHandler.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Meshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,14 +65,30 @@
     <ClInclude Include="objloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="KeyboardHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentshader.frag" />
+    <None Include="fragmentshader.frag">
+      <Filter>Resource Files\Fragment Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="vertexshader.vert" />
+    <Text Include="vertexshader.vert">
+      <Filter>Resource Files\Vertex Shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>

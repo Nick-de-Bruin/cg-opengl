@@ -24,8 +24,10 @@ int main(int argc, char** argv)
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("OpenGL Final Nick de Bruin s1141131");
     
+    //scene = Scene::; // Add scene 1
+
     glutDisplayFunc(Render);
-    // glutKeyboardFunc(keyboardHandler); // TODO: Use other keyboard handler
+    glutKeyboardFunc(KeyboardHandler);
     glutTimerFunc(DELTA_TIME, Render, 0);
     glewInit();
 
@@ -44,11 +46,21 @@ int main(int argc, char** argv)
     return 0;
 }
 
+// Not sure why we need a function here, but just calling from
+// scene doesn't work so we do it like this
+void KeyboardHandler(unsigned char key, int a, int b)
+{
+    scene.KeyboardHandler(key, a, b);
+}
+
 void Render()
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(program_id);
+
+    scene.Render();
+
     glutSwapBuffers();
 }
 
