@@ -9,7 +9,7 @@ Scene::~Scene() { }
 void Scene::Render() 
 {
 	for (auto const& model : models)
-		(*model).Render();
+		(*model).Render(); // TODO add view from camera
 }
 
 void Scene::AddModel(const std::shared_ptr<Model> model)

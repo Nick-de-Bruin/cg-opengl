@@ -10,7 +10,7 @@ private:
 	std::vector<std::shared_ptr<Mesh>> meshes;
 
 public:
-	void Render();
+	void Render(const glm::mat4 &view);
 	void AddMesh(const std::shared_ptr<Mesh> mesh);
 	void RemoveMesh(const std::shared_ptr<Mesh> mesh);
 };

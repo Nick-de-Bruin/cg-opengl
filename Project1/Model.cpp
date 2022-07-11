@@ -1,10 +1,10 @@
 #include "Model.h"
 #include "Model.h"
 
-void Model::Render()
+void Model::Render(const glm::mat4 &view)
 {
 	for (auto const& mesh : meshes)
-		(*mesh).Render();
+		(*mesh).Render(view);
 }
 
 void Model::AddMesh(const std::shared_ptr<Mesh> mesh)
