@@ -40,5 +40,8 @@ public:
 	// like position and rotation.
 	// Public so we can get it for transforms outside of
 	// the mesh
+	// We keep this in here so we can transform individual
+	// meshes, rather than having to work with entire
+	// models
 	glm::mat4 model;
 };

@@ -12,9 +12,13 @@
 class Camera
 {
 private:
+	// We don't really want to change the projection
+	// for this project, so just make it private
+	glm::mat4 Projection;
 
 public:
 	glm::mat4 View;
 
+	Camera(GLuint program_id, int width, int height);
 };
 

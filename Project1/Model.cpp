@@ -1,5 +1,4 @@
 #include "Model.h"
-#include "Model.h"
 
 void Model::Render(const glm::mat4 &view)
 {

@@ -9,7 +9,7 @@ Scene::~Scene() { }
 void Scene::Render() 
 {
 	for (auto const& model : models)
-		(*model).Render(); // TODO add view from camera
+		(*model).Render(camera.View);
 }
 
 void Scene::AddModel(const std::shared_ptr<Model> model)
@@ -32,4 +32,9 @@ void Scene::RemoveModel(const std::shared_ptr<Model> model)
 void Scene::KeyboardHandler(unsigned char key, int a, int b)
 {
 	keyHandler.HandleInput(key);
+}
+
+void Scene::SetCamera(Camera cam)
+{
+	camera = cam;
 }
