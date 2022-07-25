@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="glsl.cpp" />
     <ClCompile Include="KeyboardHandler.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="glsl.h" />
     <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="MainScene.h" />

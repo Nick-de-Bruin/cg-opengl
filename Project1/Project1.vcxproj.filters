@@ -60,6 +60,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
   </ItemGroup>

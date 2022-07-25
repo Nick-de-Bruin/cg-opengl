@@ -23,15 +23,16 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("OpenGL Final Nick de Bruin s1141131");
-    
+
+    program_id = glCreateProgram();
+    Mesh::Init(program_id);
+
     //scene = Scene::; // Add scene 1
 
     glutDisplayFunc(Render);
     glutKeyboardFunc(KeyboardHandler);
     glutTimerFunc(DELTA_TIME, Render, 0);
     glewInit();
-
-    program_id = glCreateProgram();
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
