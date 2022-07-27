@@ -63,6 +63,9 @@
     <ClCompile Include="Cube.cpp">
       <Filter>Source Files\Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
     <ClInclude Include="Cube.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
   </ItemGroup>

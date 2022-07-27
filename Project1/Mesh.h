@@ -11,10 +11,13 @@
 
 #include "glsl.h"
 #include "objloader.h"
+#include "Material.h"
 
 class Mesh
 {
 private:
+	static GLuint program_id;
+
 	// We'll keep vertices in the .h file, since we don't
 	// really need it here. The same might not be true for
 	// imported objects, but in that case we can add them
@@ -23,8 +26,6 @@ private:
 	vector<glm::vec3> vertices;
 	vector<glm::vec3> normals;
 
-	static GLuint program_id;
-	
 	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute);
 
 protected:
@@ -44,6 +45,8 @@ public:
 	void Render(const glm::mat4 &view);
 
 	static void Init(GLuint& program_id);
+
+	Material material;
 
 	// The model we want of the mesh. This includes things
 	// like position and rotation. Public so we can get it 
