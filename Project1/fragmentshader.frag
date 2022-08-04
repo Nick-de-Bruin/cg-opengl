@@ -8,6 +8,9 @@ in VS_OUT
     vec3 V;
 } fs_in;
 
+in vec2 UV;
+uniform sampler2D texsampler;
+
 // Material properties
 uniform vec3 mat_ambient;
 uniform vec3 mat_diffuse;
@@ -25,11 +28,9 @@ void main()
     vec3 R = reflect(-L, N);
 
     // Compute the diffuse and specular components for each fragment
-    vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
+    vec3 diffuse = max(dot(N, L), 0.0) * texture2D(texsampler, UV).rgb;
     vec3 specular = pow(max(dot(R, V), 0.0), mat_power) * mat_specular;
 
     // Write final color to the framebuffer
     gl_FragColor = vec4(mat_ambient + diffuse + specular, 1.0);
-    // gl_FragColor = vec4(mat_ambient + diffuse, 1.0);
-    // gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 }

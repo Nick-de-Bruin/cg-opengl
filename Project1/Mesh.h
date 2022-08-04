@@ -26,7 +26,13 @@ private:
 	static GLuint uniform_mat_specular;
 	static GLuint uniform_mat_power;
 	static GLuint uniform_mv;
+	static GLuint uniform_color;
 
+	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
+
+	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute);
+
+protected:
 	// We'll keep vertices in the .h file, since we don't
 	// really need it here. The same might not be true for
 	// imported objects, but in that case we can add them
@@ -35,13 +41,10 @@ private:
 	vector<glm::vec3> vertices;
 	vector<glm::vec3> normals;
 	vector<glm::vec2> uvs;
+
 	GLuint texture_id;
+	glm::vec3 color;
 
-	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
-
-	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute);
-
-protected:
 	// So we can set a single VAO for objects that only
 	// need one; Cubes, for example, can all be rendered
 	// with the same static VAO, but different models
@@ -50,6 +53,8 @@ protected:
 	// Methods to bidn vertices and normals to the VAO
 	void BindVertices();
 	void BindNormals();
+	void BindUVs();
+
 	void SetUniforms(const glm::mat4& view);
 
 	// Prevent default constructor
@@ -62,8 +67,8 @@ public:
 
 	Material material;
 
-	// void SetColor(float r, float g, float b);
-	// void SetTexture(string path);
+	void SetColor(float r, float g, float b);
+	void SetTexture(const char* path);
 
 	void AddTransform(std::function<glm::mat4(glm::mat4)> func);
 

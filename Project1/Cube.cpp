@@ -12,5 +12,6 @@ Cube::Cube() : Mesh()
         glGenVertexArrays(1, &vao);
         BindVertices();
         BindNormals();
+        BindUVs();
     }
 }
