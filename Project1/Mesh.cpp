@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include <functional>
+
 void Mesh::BindVertices()
 {
     BindAttribute(this->vertices, "position");
@@ -17,6 +19,7 @@ void Mesh::SetUniforms(const glm::mat4& view)
     glUseProgram(program_id);
     
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+
     glUniform3fv(uniform_mat_ambient, 1, glm::value_ptr(material.ambient_color));
     glUniform3fv(uniform_mat_diffuse, 1, glm::value_ptr(material.diffuse_color));
     glUniform3fv(uniform_mat_specular, 1, glm::value_ptr(material.specular));
@@ -55,7 +58,8 @@ void Mesh::BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute)
 
 void Mesh::Render(const glm::mat4 &view)
 {
-    // TODO: Apply transformations
+    for (std::function<glm::mat4(glm::mat4)> transform : transforms) 
+        model = transform(model);
 
     SetUniforms(view);
 
@@ -73,5 +77,10 @@ void Mesh::Init(GLuint& program_id)
     uniform_mat_power = glGetUniformLocation(program_id, "mat_power");
     uniform_mat_specular = glGetUniformLocation(program_id, "mat_specular");
     uniform_mv = glGetUniformLocation(program_id, "mv");
+}
+
+void Mesh::AddTransform(std::function<glm::mat4(glm::mat4)> func)
+{
+    transforms.push_back(func);
 }
 

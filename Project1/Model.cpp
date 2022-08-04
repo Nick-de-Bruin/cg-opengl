@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Model.h"
 
 void Model::Render(const glm::mat4 &view)
 {
@@ -21,4 +22,10 @@ void Model::RemoveMesh(const std::shared_ptr<Mesh> mesh)
 
 	if (val != std::end(meshes))
 		meshes.erase(val);
+}
+
+void Model::AddTransform(std::function<glm::mat4(glm::mat4)> func)
+{
+	for (std::shared_ptr<Mesh> mesh : meshes)
+		(*mesh).AddTransform(func);
 }

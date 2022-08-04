@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <functional>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -12,6 +13,7 @@
 #include "glsl.h"
 #include "objloader.h"
 #include "Material.h"
+#include "texture.h"
 
 class Mesh
 {
@@ -32,6 +34,10 @@ private:
 	// in the render function.
 	vector<glm::vec3> vertices;
 	vector<glm::vec3> normals;
+	vector<glm::vec2> uvs;
+	GLuint texture_id;
+
+	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
 
 	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute);
 
@@ -55,6 +61,11 @@ public:
 	static void Init(GLuint& program_id);
 
 	Material material;
+
+	// void SetColor(float r, float g, float b);
+	// void SetTexture(string path);
+
+	void AddTransform(std::function<glm::mat4(glm::mat4)> func);
 
 	// The model we want of the mesh. This includes things
 	// like position and rotation. Public so we can get it 

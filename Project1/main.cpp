@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     glutCreateWindow("OpenGL Final Nick de Bruin s1141131");
 
     program_id = glCreateProgram();
-    Mesh::Init(program_id);
+    Scene::Init(program_id);
 
     //scene = Scene::; // Add scene 1
 
