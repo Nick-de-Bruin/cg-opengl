@@ -1,10 +1,16 @@
 #include "Scene.h"
 #include <vector>
 #include <exception>
-#include "KeyboardHandler.h"
 
 Scene::Scene() { }
 Scene::~Scene() { }
+
+void Scene::Init(GLuint &program_id)
+{
+	Scene::program_id = program_id;
+	Scene::uniform_light = glGetUniformLocation(program_id, "mv");
+	Mesh::Init(program_id);
+}
 
 void Scene::Render() 
 {
@@ -29,7 +35,7 @@ void Scene::RemoveModel(const std::shared_ptr<Model> model)
 		models.erase(val);
 }
 
-void Scene::KeyboardHandler(unsigned char key, int a, int b)
+void Scene::KeyHandler(unsigned char key, int a, int b)
 {
 	keyHandler.HandleInput(key);
 }

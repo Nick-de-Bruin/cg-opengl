@@ -19,6 +19,9 @@ private:
 public:
 	glm::mat4 View;
 
+	// Default constructor with nothing
+	Camera();
+
 	Camera(GLuint program_id, int width, int height);
 };
 

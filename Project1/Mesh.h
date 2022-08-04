@@ -18,6 +18,13 @@ class Mesh
 private:
 	static GLuint program_id;
 
+	// Only fetch these variables once for performance
+	static GLuint uniform_mat_ambient;
+	static GLuint uniform_mat_diffuse;
+	static GLuint uniform_mat_specular;
+	static GLuint uniform_mat_power;
+	static GLuint uniform_mv;
+
 	// We'll keep vertices in the .h file, since we don't
 	// really need it here. The same might not be true for
 	// imported objects, but in that case we can add them
@@ -37,6 +44,7 @@ protected:
 	// Methods to bidn vertices and normals to the VAO
 	void BindVertices();
 	void BindNormals();
+	void SetUniforms(const glm::mat4& view);
 
 	// Prevent default constructor
 	Mesh();

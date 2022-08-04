@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+Camera::Camera() { }
+
 Camera::Camera(GLuint program_id, int width, int height)
 {
 	Projection = glm::perspective(

@@ -10,6 +10,19 @@ void Mesh::BindNormals()
     BindAttribute(this->normals, "normal");
 }
 
+void Mesh::SetUniforms(const glm::mat4& view)
+{
+    glm::mat4 mv = model * view;
+
+    glUseProgram(program_id);
+    
+    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+    glUniform3fv(uniform_mat_ambient, 1, glm::value_ptr(material.ambient_color));
+    glUniform3fv(uniform_mat_diffuse, 1, glm::value_ptr(material.diffuse_color));
+    glUniform3fv(uniform_mat_specular, 1, glm::value_ptr(material.specular));
+    glUniform1f(uniform_mat_power, material.specular_power);
+}
+
 Mesh::Mesh() { }
 
 // TODO: Check if ref is sound
@@ -43,12 +56,8 @@ void Mesh::BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute)
 void Mesh::Render(const glm::mat4 &view)
 {
     // TODO: Apply transformations
-    glm::mat4 mv = view * model;
 
-    // Send mv -> We probbaly wanna do something other than a
-    // uniform here, because uniform would be
-    // for everything, would be bad:tm:
-    // glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+    SetUniforms(view);
 
     glBindVertexArray(this->GetVao());
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
@@ -58,5 +67,11 @@ void Mesh::Render(const glm::mat4 &view)
 void Mesh::Init(GLuint& program_id)
 {
     Mesh::program_id = program_id;
+
+    uniform_mat_ambient = glGetUniformLocation(program_id, "mat_ambient");
+    uniform_mat_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
+    uniform_mat_power = glGetUniformLocation(program_id, "mat_power");
+    uniform_mat_specular = glGetUniformLocation(program_id, "mat_specular");
+    uniform_mv = glGetUniformLocation(program_id, "mv");
 }
 
