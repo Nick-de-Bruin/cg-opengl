@@ -19,6 +19,7 @@ class Mesh
 {
 private:
 	static GLuint program_id;
+	static GLuint simple_program_id;
 
 	// Only fetch these variables once for performance
 	static GLuint uniform_mat_ambient;
@@ -28,9 +29,16 @@ private:
 	static GLuint uniform_mv;
 	static GLuint uniform_color;
 
+	static GLuint simple_uniform_mat_ambient;
+	static GLuint simple_uniform_mat_diffuse;
+	static GLuint simple_uniform_mat_specular;
+	static GLuint simple_uniform_mat_power;
+	static GLuint simple_uniform_mv;
+	static GLuint simple_uniform_color;
+
 	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
 
-	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute);
+	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute); // Move
 
 protected:
 	// We'll keep vertices in the .h file, since we don't
@@ -39,23 +47,25 @@ protected:
 	// to the class itself to make it possible to call them
 	// in the render function.
 	vector<glm::vec3> vertices;
-	vector<glm::vec3> normals;
-	vector<glm::vec2> uvs;
 
-	GLuint texture_id;
+	vector<glm::vec3> normals; // Move
+	vector<glm::vec2> uvs; // Move
+
+	GLuint texture_id; // Move
 	glm::vec3 color;
 
 	// So we can set a single VAO for objects that only
 	// need one; Cubes, for example, can all be rendered
 	// with the same static VAO, but different models
 	virtual GLuint GetVao() = 0;
+	virtual GLuint GetProgramId() = 0;
 
 	// Methods to bidn vertices and normals to the VAO
 	void BindVertices();
-	void BindNormals();
-	void BindUVs();
+	void BindNormals(); // Move
+	void BindUVs(); // Move
 
-	void SetUniforms(const glm::mat4& view);
+	void SetUniforms(const glm::mat4& view); // Virtual? Or move
 
 	// Prevent default constructor
 	Mesh();
@@ -63,11 +73,11 @@ protected:
 public:
 	void Render(const glm::mat4 &view);
 
-	static void Init(GLuint& program_id);
+	static void Init(GLuint& program_id, GLuint& simple_program_id);
 
 	Material material;
 
-	void SetColor(float r, float g, float b);
+	virtual void SetColor(float r, float g, float b);
 	void SetTexture(const char* path);
 
 	void AddTransform(std::function<glm::mat4(glm::mat4)> func);

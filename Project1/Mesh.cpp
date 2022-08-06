@@ -28,7 +28,7 @@ void Mesh::BindUVs()
         &uvs[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    GLuint uv_id = glGetAttribLocation(program_id, "uv");
+    GLuint uv_id = glGetAttribLocation(this->GetProgramId(), "uv");
 
     // Bind to vao
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -41,10 +41,10 @@ void Mesh::SetUniforms(const glm::mat4& view)
 {
     glm::mat4 mv = model * view;
 
-    glUseProgram(program_id);
+    glUseProgram(this->GetProgramId());
     
     // Bind textures
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glBindTexture(GL_TEXTURE_2D, texture_id); // Move
 
     // Bind uniforms
     glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
@@ -69,7 +69,7 @@ void Mesh::BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // Get the attribute id
-    GLuint attribute_id = glGetAttribLocation(program_id, attribute);
+    GLuint attribute_id = glGetAttribLocation(this->GetProgramId(), attribute);
 
     // Bind to vao
     glBindVertexArray(this->GetVao());
@@ -88,6 +88,8 @@ void Mesh::Render(const glm::mat4 &view)
     for (std::function<glm::mat4(glm::mat4)> transform : transforms) 
         model = transform(model);
 
+    // Sometimes add textures
+
     SetUniforms(view);
 
     glBindVertexArray(this->GetVao());
@@ -95,27 +97,36 @@ void Mesh::Render(const glm::mat4 &view)
     glBindVertexArray(0);
 }
 
-void Mesh::Init(GLuint& program_id)
+void Mesh::Init(GLuint& program_id, GLuint& simple_program_id)
 {
     Mesh::program_id = program_id;
+    Mesh::simple_program_id = simple_program_id;
 
+    // Set normal program IDs
     uniform_mat_ambient = glGetUniformLocation(program_id, "mat_ambient");
     uniform_mat_diffuse = glGetUniformLocation(program_id, "mat_diffuse");
     uniform_mat_power = glGetUniformLocation(program_id, "mat_power");
     uniform_mat_specular = glGetUniformLocation(program_id, "mat_specular");
     uniform_mv = glGetUniformLocation(program_id, "mv");
     uniform_color = glGetUniformLocation(program_id, "color");
+
+    // Set simple program IDs
+    simple_uniform_mat_ambient = glGetUniformLocation(simple_program_id, "mat_ambient");
+    simple_uniform_mat_diffuse = glGetUniformLocation(simple_program_id, "mat_diffuse");
+    simple_uniform_mat_power = glGetUniformLocation(simple_program_id, "mat_power");
+    simple_uniform_mat_specular = glGetUniformLocation(simple_program_id, "mat_specular");
+    simple_uniform_mv = glGetUniformLocation(simple_program_id, "mv");
+    simple_uniform_color = glGetUniformLocation(simple_program_id, "color");
 }
 
 // Color in
 // rgb, 0 - 255
 void Mesh::SetColor(float r, float g, float b)
 {
-    // Set full white texture
-    texture_id = loadBMP("w.bmp");
     color = glm::vec3(r / 255, g / 255, b / 255);
 }
 
+// Move
 void Mesh::SetTexture(const char* path)
 {
     texture_id = loadBMP(path);
