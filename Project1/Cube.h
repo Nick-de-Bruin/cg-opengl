@@ -1,18 +1,23 @@
 #pragma once
-#include "Mesh.h"
+#include "PrimitiveMesh.h"
 
 class Cube :
-    public Mesh
+    public PrimitiveMesh
 {
 private:
     static GLuint vao;
-    static GLuint vbo;
     static bool initialized;
+
+    static GLfloat vertices[24];
+    static GLfloat colors[24];
+    static GLushort elements[24];
 
 protected:
     GLuint GetVao();
 
 public:
+    void Render(const glm::mat4& view);
+
     Cube();
 };
 

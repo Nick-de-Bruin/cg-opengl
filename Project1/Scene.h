@@ -8,8 +8,9 @@
 
 class Scene
 {
-private:
+protected:
 	static GLuint program_id;
+	static GLuint simple_program_id;
 	static GLuint uniform_light;
 
 	std::vector<std::shared_ptr<Model>> models;
@@ -18,10 +19,7 @@ private:
 	KeyboardHandler keyHandler;
 
 public:
-	static void Init(GLuint &program_id);
-
 	Scene();
-	~Scene();
 	void Render();
 	void SetCamera(Camera cam);
 	void AddModel(const std::shared_ptr<Model> model);

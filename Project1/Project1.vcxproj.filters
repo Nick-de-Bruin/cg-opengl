@@ -75,6 +75,9 @@
     <ClCompile Include="ImportedObj.cpp">
       <Filter>Source Files\Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="PrimitiveMesh.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glsl.h">
@@ -113,10 +116,19 @@
     <ClInclude Include="ImportedObj.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="PrimitiveMesh.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentshader.frag">
       <Filter>Resource Files\Fragment Shaders</Filter>
+    </None>
+    <None Include="simplefragmentshader.frag">
+      <Filter>Resource Files\Fragment Shaders</Filter>
+    </None>
+    <None Include="simplevertexshader.vert">
+      <Filter>Resource Files\Vertex Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

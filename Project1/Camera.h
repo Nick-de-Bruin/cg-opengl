@@ -22,6 +22,6 @@ public:
 	// Default constructor with nothing
 	Camera();
 
-	Camera(GLuint program_id, int width, int height);
+	Camera(std::vector<GLuint> program_ids, int width, int height);
 };
 

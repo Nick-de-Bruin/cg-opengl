@@ -18,6 +18,9 @@
 class Mesh
 {
 private:
+	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
+
+protected:
 	static GLuint program_id;
 	static GLuint simple_program_id;
 
@@ -36,22 +39,6 @@ private:
 	static GLuint simple_uniform_mv;
 	static GLuint simple_uniform_color;
 
-	std::vector<std::function<glm::mat4(glm::mat4)>> transforms;
-
-	void BindAttribute(const vector<glm::vec3> &arr, const GLchar* attribute); // Move
-
-protected:
-	// We'll keep vertices in the .h file, since we don't
-	// really need it here. The same might not be true for
-	// imported objects, but in that case we can add them
-	// to the class itself to make it possible to call them
-	// in the render function.
-	vector<glm::vec3> vertices;
-
-	vector<glm::vec3> normals; // Move
-	vector<glm::vec2> uvs; // Move
-
-	GLuint texture_id; // Move
 	glm::vec3 color;
 
 	// So we can set a single VAO for objects that only
@@ -59,26 +46,18 @@ protected:
 	// with the same static VAO, but different models
 	virtual GLuint GetVao() = 0;
 	virtual GLuint GetProgramId() = 0;
+	virtual GLuint GetTextureId();
 
-	// Methods to bidn vertices and normals to the VAO
-	void BindVertices();
-	void BindNormals(); // Move
-	void BindUVs(); // Move
-
-	void SetUniforms(const glm::mat4& view); // Virtual? Or move
-
-	// Prevent default constructor
-	Mesh();
+	virtual void SetUniforms(const glm::mat4& view) = 0;
 
 public:
-	void Render(const glm::mat4 &view);
+	Mesh();
+	~Mesh();
 
 	static void Init(GLuint& program_id, GLuint& simple_program_id);
 
-	Material material;
-
+	virtual void Render(const glm::mat4 &view);
 	virtual void SetColor(float r, float g, float b);
-	void SetTexture(const char* path);
 
 	void AddTransform(std::function<glm::mat4(glm::mat4)> func);
 
@@ -89,4 +68,5 @@ public:
 	// meshes, rather than having to work with entire
 	// models
 	glm::mat4 model;
+	Material material;
 };

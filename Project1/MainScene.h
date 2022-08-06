@@ -2,17 +2,16 @@
 
 #include "Scene.h"
 
-class MainScene : Scene
+class MainScene : public Scene
 {
 private:
 	void GenerateMeshes();
-	void GenerateCamera();
+	void GenerateCamera(std::vector<GLuint> ids);
 	void GenerateLights();
-	static void SetDroneControls();
-	static void SetWalkControls();
+	void SetDroneControls();
+	void SetWalkControls();
 
 public:
 	MainScene();
-	~MainScene();
 };
 

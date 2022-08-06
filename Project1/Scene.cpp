@@ -2,15 +2,10 @@
 #include <vector>
 #include <exception>
 
-Scene::Scene() { }
-Scene::~Scene() { }
+GLuint Scene::program_id = 0;
+GLuint Scene::simple_program_id = 0;
 
-void Scene::Init(GLuint &program_id)
-{
-	Scene::program_id = program_id;
-	Scene::uniform_light = glGetUniformLocation(program_id, "mv");
-	Mesh::Init(program_id);
-}
+Scene::Scene() {}
 
 void Scene::Render() 
 {

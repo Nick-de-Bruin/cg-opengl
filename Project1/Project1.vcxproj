@@ -141,6 +141,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="PrimitiveMesh.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="objloader.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="PrimitiveMesh.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentshader.frag" />
+    <None Include="simplefragmentshader.frag" />
+    <None Include="simplevertexshader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="w.bmp" />
