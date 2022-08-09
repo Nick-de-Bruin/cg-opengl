@@ -11,11 +11,12 @@ void MainScene::GenerateMeshes()
 	AddModel(cube);
 }
 
-void MainScene::GenerateCamera(std::vector<GLuint> ids)
+void MainScene::GenerateCamera(std::vector<GLuint> ids,
+	const int& width, const int& height)
 {
-	camera = Camera(ids, 800, 600);
+	camera = Camera(ids, width, height);
 	camera.View = glm::lookAt(
-		glm::vec3(2.0, 2.0, 7.0),
+		glm::vec3(3.0, 3.0, 2.0),
 		glm::vec3(0.0, 0.0, 0.0),
 		glm::vec3(0.0, 1.0, 0.0)
 	);
@@ -29,7 +30,7 @@ void MainScene::GenerateLights()
 void MainScene::SetDroneControls() { }
 void MainScene::SetWalkControls() { }
 
-MainScene::MainScene()
+MainScene::MainScene(const int &width, const int &height)
 {
 	program_id = glsl::makeShaderProgram(
 		glsl::makeVertexShader(
@@ -50,6 +51,6 @@ MainScene::MainScene()
 	Mesh::Init(program_id, simple_program_id);
 
 	GenerateLights();
-	GenerateCamera(program_ids);
+	GenerateCamera(program_ids, width, height);
 	GenerateMeshes();
 }

@@ -16,20 +16,8 @@ Scene scene;
 
 // Not sure why we need a function here, but just calling from
 // scene doesn't work so we do it like this
-void KeyboardHandler(unsigned char key, int a, int b)
-{
-    scene.KeyHandler(key, a, b);
-}
-
-void Render()
-{
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    scene.Render();
-
-    glutSwapBuffers();
-}
+void KeyboardHandler(unsigned char key, int a, int b) { scene.KeyHandler(key, a, b); }
+void Render() { scene.Render(); }
 
 void Render(int n)
 {
@@ -53,7 +41,7 @@ int main(int argc, char** argv)
 
     glewInit();
 
-    scene = MainScene();
+    scene = MainScene(WIDTH, HEIGHT);
 
     //ShowWindow(
     //    GetConsoleWindow(),

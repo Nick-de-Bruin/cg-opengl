@@ -14,12 +14,12 @@ GLuint Mesh::uniform_mat_power = 0;
 GLuint Mesh::uniform_mv = 0;
 GLuint Mesh::uniform_color = 0;
 
-GLuint Mesh::simple_uniform_mat_ambient = 0;
-GLuint Mesh::simple_uniform_mat_diffuse = 0;
-GLuint Mesh::simple_uniform_mat_specular = 0;
-GLuint Mesh::simple_uniform_mat_power = 0;
+//GLuint Mesh::simple_uniform_mat_ambient = 0;
+//GLuint Mesh::simple_uniform_mat_diffuse = 0;
+//GLuint Mesh::simple_uniform_mat_specular = 0;
+//GLuint Mesh::simple_uniform_mat_power = 0;
 GLuint Mesh::simple_uniform_mv = 0;
-GLuint Mesh::simple_uniform_color = 0;
+//GLuint Mesh::simple_uniform_color = 0;
 
 
 Mesh::Mesh()
@@ -56,12 +56,12 @@ void Mesh::Init(GLuint& program_id, GLuint& simple_program_id)
     uniform_color = glGetUniformLocation(program_id, "color");
 
     // Set simple program IDs
-    simple_uniform_mat_ambient = glGetUniformLocation(simple_program_id, "mat_ambient");
-    simple_uniform_mat_diffuse = glGetUniformLocation(simple_program_id, "mat_diffuse");
-    simple_uniform_mat_power = glGetUniformLocation(simple_program_id, "mat_power");
-    simple_uniform_mat_specular = glGetUniformLocation(simple_program_id, "mat_specular");
+    //simple_uniform_mat_ambient = glGetUniformLocation(simple_program_id, "mat_ambient");
+    //simple_uniform_mat_diffuse = glGetUniformLocation(simple_program_id, "mat_diffuse");
+    //simple_uniform_mat_power = glGetUniformLocation(simple_program_id, "mat_power");
+    //simple_uniform_mat_specular = glGetUniformLocation(simple_program_id, "mat_specular");
     simple_uniform_mv = glGetUniformLocation(simple_program_id, "mv");
-    simple_uniform_color = glGetUniformLocation(simple_program_id, "color");
+    //simple_uniform_color = glGetUniformLocation(simple_program_id, "color");
 }
 
 // Color in

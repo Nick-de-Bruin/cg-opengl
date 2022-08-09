@@ -6,7 +6,8 @@ Camera::Camera(std::vector<GLuint> program_ids, int width, int height)
 {
 	Projection = glm::perspective(
 		glm::radians(45.0f),
-		1.0f * width / height, 0.1f,
+		1.0f * width / height,
+		0.1f,
 		20.0f
 	);
 

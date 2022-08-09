@@ -32,12 +32,12 @@ protected:
 	static GLuint uniform_mv;
 	static GLuint uniform_color;
 
-	static GLuint simple_uniform_mat_ambient;
-	static GLuint simple_uniform_mat_diffuse;
-	static GLuint simple_uniform_mat_specular;
-	static GLuint simple_uniform_mat_power;
+	//static GLuint simple_uniform_mat_ambient;
+	//static GLuint simple_uniform_mat_diffuse;
+	//static GLuint simple_uniform_mat_specular;
+	//static GLuint simple_uniform_mat_power;
 	static GLuint simple_uniform_mv;
-	static GLuint simple_uniform_color;
+	//static GLuint simple_uniform_color;
 
 	glm::vec3 color;
 

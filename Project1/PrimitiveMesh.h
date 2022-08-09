@@ -6,7 +6,11 @@ class PrimitiveMesh :
 protected:
 	GLuint GetProgramId();
 
-	void BindElements(GLfloat* verts, GLfloat* colors, GLushort* elements);
+	void BindElements(
+		std::vector<GLfloat> verts, 
+		std::vector<GLfloat> colors, 
+		std::vector<GLushort> elements
+	);
 
 	void SetUniforms(const glm::mat4& view);
 };

@@ -3,33 +3,39 @@
 
 GLuint PrimitiveMesh::GetProgramId() { return simple_program_id; }
 
-void PrimitiveMesh::BindElements(GLfloat* verts, GLfloat* colors, GLushort* elements)
+void PrimitiveMesh::BindElements(
+    std::vector<GLfloat> verts, 
+    std::vector<GLfloat> colors, 
+    std::vector<GLushort> elements)
 {
     glUseProgram(this->GetProgramId());
 
     GLuint vbo_vertices;
     GLuint vbo_colors;
-    GLuint vbo_elements;
+    GLuint ibo_elements;
 
     // vbo for vertices
     glGenBuffers(1, &vbo_vertices);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), 
-        verts, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 
+        verts.size() * sizeof(GLfloat),
+        &verts[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // vbo for colors
     glGenBuffers(1, &vbo_colors);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colors);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), 
-        colors, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 
+        colors.size() * sizeof(GLfloat),
+        &colors[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // vbo for elements
-    glGenBuffers(1, &vbo_elements);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_elements);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), 
-        elements, GL_STATIC_DRAW);
+    glGenBuffers(1, &ibo_elements);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_elements);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 
+        elements.size() * sizeof(GLushort),
+        &elements[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // Get vertex attributes
@@ -49,7 +55,7 @@ void PrimitiveMesh::BindElements(GLfloat* verts, GLfloat* colors, GLushort* elem
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // Bind elements to vao
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_elements);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_elements);
 
     // Stop bind to vao
     glBindVertexArray(0);
@@ -57,15 +63,15 @@ void PrimitiveMesh::BindElements(GLfloat* verts, GLfloat* colors, GLushort* elem
 
 void PrimitiveMesh::SetUniforms(const glm::mat4& view)
 {
-	glm::mat4 mv = model * view;
+	glm::mat4 mv = view * model;
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	// Bind uniforms
 	glUniformMatrix4fv(simple_uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
-	glUniform3fv(simple_uniform_mat_ambient, 1, glm::value_ptr(material.ambient_color));
-	glUniform3fv(simple_uniform_mat_diffuse, 1, glm::value_ptr(material.diffuse_color));
-	glUniform3fv(simple_uniform_mat_specular, 1, glm::value_ptr(material.specular));
-	glUniform1f(simple_uniform_mat_power, material.specular_power);
-	glUniform3fv(simple_uniform_color, 1, glm::value_ptr(color));
+	//glUniform3fv(simple_uniform_mat_ambient, 1, glm::value_ptr(material.ambient_color));
+	//glUniform3fv(simple_uniform_mat_diffuse, 1, glm::value_ptr(material.diffuse_color));
+	//glUniform3fv(simple_uniform_mat_specular, 1, glm::value_ptr(material.specular));
+	//glUniform1f(simple_uniform_mat_power, material.specular_power);
+	//glUniform3fv(simple_uniform_color, 1, glm::value_ptr(color));
 }

@@ -114,7 +114,7 @@ void ImportedObj::BindUVs()
 
 void ImportedObj::SetUniforms(const glm::mat4& view)
 {
-	glm::mat4 mv = model * view;
+	glm::mat4 mv = view * model;
 
 	// Bind textures
 	glBindTexture(GL_TEXTURE_2D, texture_id);

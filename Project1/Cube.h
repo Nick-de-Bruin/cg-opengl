@@ -8,9 +8,9 @@ private:
     static GLuint vao;
     static bool initialized;
 
-    static GLfloat vertices[24];
-    static GLfloat colors[24];
-    static GLushort elements[24];
+    static std::vector<GLfloat> vertices;
+    static std::vector<GLfloat> colors;
+    static std::vector<GLushort> elements;
 
 protected:
     GLuint GetVao();

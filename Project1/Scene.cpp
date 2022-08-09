@@ -9,8 +9,13 @@ Scene::Scene() {}
 
 void Scene::Render() 
 {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	for (auto const& model : models)
 		(*model).Render(camera.View);
+
+	glutSwapBuffers();
 }
 
 void Scene::AddModel(const std::shared_ptr<Model> model)
