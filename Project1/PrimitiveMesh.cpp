@@ -42,6 +42,8 @@ void PrimitiveMesh::BindElements(
     GLuint position_id = glGetAttribLocation(this->GetProgramId(), "position");
     GLuint color_id = glGetAttribLocation(this->GetProgramId(), "color");
 
+    glBindVertexArray(this->GetVao());
+
     // Bind vertices to vao
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
     glVertexAttribPointer(position_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
