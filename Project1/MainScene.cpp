@@ -1,6 +1,7 @@
 #include "MainScene.h"
 
 #include "Cube.h"
+#include <iostream>
 
 void MainScene::GenerateMeshes()
 {

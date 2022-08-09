@@ -1,9 +1,12 @@
 #include "PrimitiveMesh.h"
+#include <iostream>
 
-GLuint PrimitiveMesh::GetProgramId() { return program_id; }
+GLuint PrimitiveMesh::GetProgramId() { return simple_program_id; }
 
 void PrimitiveMesh::BindElements(GLfloat* verts, GLfloat* colors, GLushort* elements)
 {
+    glUseProgram(this->GetProgramId());
+
     GLuint vbo_vertices;
     GLuint vbo_colors;
     GLuint vbo_elements;
@@ -11,28 +14,27 @@ void PrimitiveMesh::BindElements(GLfloat* verts, GLfloat* colors, GLushort* elem
     // vbo for vertices
     glGenBuffers(1, &vbo_vertices);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), 
+        verts, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // vbo for colors
     glGenBuffers(1, &vbo_colors);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colors);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), 
+        colors, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // vbo for elements
     glGenBuffers(1, &vbo_elements);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_elements);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements),
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), 
         elements, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // Get vertex attributes
-    GLuint position_id = glGetAttribLocation(program_id, "position");
-    GLuint color_id = glGetAttribLocation(program_id, "color");
-
-    // Bind to vao
-    glBindVertexArray(this->GetVao());
+    GLuint position_id = glGetAttribLocation(this->GetProgramId(), "position");
+    GLuint color_id = glGetAttribLocation(this->GetProgramId(), "color");
 
     // Bind vertices to vao
     glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);

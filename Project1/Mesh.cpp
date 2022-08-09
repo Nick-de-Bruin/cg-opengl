@@ -1,6 +1,7 @@
 #include "Mesh.h"
 
 #include <functional>
+#include <iostream>
 
 GLuint Mesh::program_id = 0;
 GLuint Mesh::simple_program_id = 0;
@@ -23,6 +24,7 @@ GLuint Mesh::simple_uniform_color = 0;
 
 Mesh::Mesh()
 {
+    model = glm::mat4();
     SetColor(162, 164, 164);
 }
 
