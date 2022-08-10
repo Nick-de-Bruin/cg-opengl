@@ -12,6 +12,7 @@ public:
 	KeyboardHandler();
 	~KeyboardHandler();
 	void AddKey(char key, std::function<void(float)> fn);
+	void RemoveAll();
 	void RemoveKey(char key);
 	void HandleInput(char key, float t);
 };

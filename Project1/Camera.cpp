@@ -1,8 +1,46 @@
 #include "Camera.h"
 #include <iostream>
 
+void Camera::Process()
+{
+	// https://learnopengl.com/Getting-started/Camera
+
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	front = glm::normalize(glm::vec3 {
+		cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
+		sin(glm::radians(pitch)),
+		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
+	});
+
+	// https://stackoverflow.com/questions/64953941/how-to-implement-the-roll-angle-together-with-yaw-and-pitch-in-glmlookat-funct
+
+	up = {
+		cos(glm::radians(roll)),
+		sin(glm::radians(roll)),
+		0
+	};
+}
+
+glm::vec3 Camera::FlatFront()
+{
+	float x = front.z == 0 ? 1 : front.z;
+	return //front;
+	// TODO: Do something so we only
+	// move on the x, z axis, not on the y
+	{
+		front.x,
+		0,
+		-1
+	};
+}
+
 glm::mat4 Camera::View()
 {
+	Process();
 	return glm::lookAt(
 		position,
 		position + front,
@@ -15,6 +53,10 @@ Camera::Camera()
 	position = glm::vec3(0.0, 0.0, 3.0);
 	front = glm::vec3(0.0, 0.0, -1.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
+
+	yaw = -90.0;
+	pitch = 0.0;
+	roll = 90.0;
 }
 
 Camera::Camera(std::vector<GLuint> program_ids, int width, int height) 

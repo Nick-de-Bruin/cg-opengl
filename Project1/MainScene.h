@@ -9,7 +9,6 @@ private:
 	void GenerateCamera(std::vector<GLuint> ids, 
 		const int& width, const int& height);
 	void GenerateLights();
-	void SetDroneControls();
 	void SetWalkControls();
 
 public:

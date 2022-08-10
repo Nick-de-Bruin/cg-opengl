@@ -17,9 +17,16 @@ private:
 	glm::mat4 Projection;
 
 public:
+	void Process();
 	glm::vec3 position;
 	glm::vec3 front;
 	glm::vec3 up;
+
+	glm::vec3 FlatFront();
+
+	float yaw;
+	float pitch;
+	float roll;
 
 	glm::mat4 View();
 

@@ -26,33 +26,61 @@ void MainScene::GenerateCamera(std::vector<GLuint> ids,
 
 void MainScene::GenerateLights()
 {
-	// TODO
-}
-
-void MainScene::SetDroneControls() 
-{ 
+	light = glm::vec3(0, 100, 0);
 }
 
 void MainScene::SetWalkControls() 
 {
 	keyHandler.AddKey('w', [&camera = camera] (float speed) {
-		(* camera).position += speed * (*camera).front;
+		(* camera).position += speed * (*camera).FlatFront();
 	});
 
 	keyHandler.AddKey('s', [&camera = camera](float speed) {
-		(*camera).position -= speed * (*camera).front;
+		(* camera).position -= speed * (*camera).FlatFront();
 	});
 
 	keyHandler.AddKey('a', [&camera = camera](float speed) {
 		(*camera).position -= glm::normalize(
-			glm::cross((*camera).front, (*camera).up)
+			glm::cross((*camera).FlatFront(), (*camera).up)
 		) * speed;
 	});
 
 	keyHandler.AddKey('d', [&camera = camera](float speed) {
 		(*camera).position += glm::normalize(
-			glm::cross((*camera).front, (*camera).up)
+			glm::cross((*camera).FlatFront(), (*camera).up)
 		) * speed;
+	});
+
+	keyHandler.AddKey('j', [&camera = camera](float speed) {
+		(*camera).yaw -= speed * 10;
+	});
+
+	keyHandler.AddKey('l', [&camera = camera](float speed) {
+		(*camera).yaw += speed * 10;
+	});
+
+	keyHandler.AddKey('i', [&camera = camera](float speed) {
+		(*camera).pitch += speed * 10;
+	});
+
+	keyHandler.AddKey('k', [&camera = camera](float speed) {
+		(*camera).pitch -= speed * 10;
+	});
+
+	keyHandler.AddKey('u', [&camera = camera](float speed) {
+		(*camera).roll += speed * 100;
+	});
+
+	keyHandler.AddKey('o', [&camera = camera](float speed) {
+		(*camera).roll -= speed * 100;
+	});
+
+	keyHandler.AddKey('v', [&](float speed) {
+		(*camera).position = { 0, 4, 0 };
+		
+		(*camera).pitch = -90.0;
+		(*camera).yaw = 0.0;
+		(*camera).roll = 90.0;
 	});
 }
 

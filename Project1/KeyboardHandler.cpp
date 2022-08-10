@@ -10,6 +10,8 @@ void KeyboardHandler::AddKey(char key, std::function<void(float)> fn)
 		keyMap.insert(std::make_pair(key, fn));
 }
 
+void KeyboardHandler::RemoveAll() {	keyMap.clear(); }
+
 void KeyboardHandler::RemoveKey(char key)
 {
 	if (keyMap.count(key) > 0)
@@ -18,6 +20,6 @@ void KeyboardHandler::RemoveKey(char key)
 
 void KeyboardHandler::HandleInput(char key, float t) 
 {
-	if (keyMap.find(key) != keyMap.end())
-		keyMap.at(key)(t * 2.5);
+	if (keyMap.count(key) > 0)
+		keyMap.at(key)(t * 5);
 }
