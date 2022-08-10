@@ -1,8 +1,24 @@
 #include "Camera.h"
+#include <iostream>
 
-Camera::Camera() { }
+glm::mat4 Camera::View()
+{
+	return glm::lookAt(
+		position,
+		position + front,
+		up
+	);
+}
 
-Camera::Camera(std::vector<GLuint> program_ids, int width, int height)
+Camera::Camera() 
+{ 
+	position = glm::vec3(0.0, 0.0, 3.0);
+	front = glm::vec3(0.0, 0.0, -1.0);
+	up = glm::vec3(0.0, 1.0, 0.0);
+}
+
+Camera::Camera(std::vector<GLuint> program_ids, int width, int height) 
+	: Camera()
 {
 	Projection = glm::perspective(
 		glm::radians(45.0f),

@@ -17,7 +17,11 @@ private:
 	glm::mat4 Projection;
 
 public:
-	glm::mat4 View;
+	glm::vec3 position;
+	glm::vec3 front;
+	glm::vec3 up;
+
+	glm::mat4 View();
 
 	// Default constructor with nothing
 	Camera();

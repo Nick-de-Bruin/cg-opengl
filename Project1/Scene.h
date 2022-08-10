@@ -14,16 +14,17 @@ protected:
 	static GLuint uniform_light;
 
 	std::vector<std::shared_ptr<Model>> models;
-	Camera camera;
 	glm::vec3 light;
 	KeyboardHandler keyHandler;
 
 public:
+	Camera* camera;
+
 	Scene();
 	void Render();
 	void SetCamera(Camera cam);
 	void AddModel(const std::shared_ptr<Model> model);
 	void RemoveModel(const std::shared_ptr<Model> model);
-	void KeyHandler(unsigned char key, int a, int b);
+	void KeyHandler(unsigned char key, int a, int b, float t);
 };
 

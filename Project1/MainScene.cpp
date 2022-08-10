@@ -7,6 +7,13 @@ void MainScene::GenerateMeshes()
 {
 	std::shared_ptr<Model> cube = std::make_shared<Model>();
 	std::shared_ptr<Mesh> c = std::make_shared<Cube>();
+	(*c).AddTransform([](glm::mat4 model) {
+		return glm::rotate(
+			model,
+			glm::radians(1.0f),
+			glm::vec3(0.0f, 0.5f, 1.0f)
+		);
+	});
 	(* cube).AddMesh(c);
 	AddModel(cube);
 }
@@ -14,12 +21,7 @@ void MainScene::GenerateMeshes()
 void MainScene::GenerateCamera(std::vector<GLuint> ids,
 	const int& width, const int& height)
 {
-	camera = Camera(ids, width, height);
-	camera.View = glm::lookAt(
-		glm::vec3(3.0, 3.0, 2.0),
-		glm::vec3(0.0, 0.0, 0.0),
-		glm::vec3(0.0, 1.0, 0.0)
-	);
+	camera = new Camera(ids, width, height);
 }
 
 void MainScene::GenerateLights()
@@ -27,8 +29,32 @@ void MainScene::GenerateLights()
 	// TODO
 }
 
-void MainScene::SetDroneControls() { }
-void MainScene::SetWalkControls() { }
+void MainScene::SetDroneControls() 
+{ 
+}
+
+void MainScene::SetWalkControls() 
+{
+	keyHandler.AddKey('w', [&camera = camera] (float speed) {
+		(* camera).position += speed * (*camera).front;
+	});
+
+	keyHandler.AddKey('s', [&camera = camera](float speed) {
+		(*camera).position -= speed * (*camera).front;
+	});
+
+	keyHandler.AddKey('a', [&camera = camera](float speed) {
+		(*camera).position -= glm::normalize(
+			glm::cross((*camera).front, (*camera).up)
+		) * speed;
+	});
+
+	keyHandler.AddKey('d', [&camera = camera](float speed) {
+		(*camera).position += glm::normalize(
+			glm::cross((*camera).front, (*camera).up)
+		) * speed;
+	});
+}
 
 MainScene::MainScene(const int &width, const int &height)
 {
@@ -53,4 +79,5 @@ MainScene::MainScene(const int &width, const int &height)
 	GenerateLights();
 	GenerateCamera(program_ids, width, height);
 	GenerateMeshes();
+	SetWalkControls();
 }
