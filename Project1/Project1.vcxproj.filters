@@ -34,6 +34,12 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{d46b4dc8-9ba7-4fda-b44d-d080850bed8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Meshes\Primitives">
+      <UniqueIdentifier>{78243c8d-c71d-4eee-a4de-5ec91632d301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Meshes\Primitives">
+      <UniqueIdentifier>{9a432af7-ff13-484a-9d50-9a4eab3e1385}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,9 +69,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files\Meshes</Filter>
-    </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Meshes</Filter>
     </ClCompile>
@@ -77,6 +80,21 @@
     </ClCompile>
     <ClCompile Include="PrimitiveMesh.cpp">
       <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Meshes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\Meshes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyramid.cpp">
+      <Filter>Source Files\Meshes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreePyramid.cpp">
+      <Filter>Source Files\Meshes\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitivePolygon.cpp">
+      <Filter>Source Files\Meshes\Primitives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +122,6 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\Meshes</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
@@ -118,6 +133,21 @@
     </ClInclude>
     <ClInclude Include="PrimitiveMesh.h">
       <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Meshes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files\Meshes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Header Files\Meshes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreePyramid.h">
+      <Filter>Header Files\Meshes\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitivePolygon.h">
+      <Filter>Header Files\Meshes\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

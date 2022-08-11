@@ -140,9 +140,13 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="objloader.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="PrimitivePolygon.cpp" />
+    <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PrimitiveMesh.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="ThreePyramid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -155,9 +159,13 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="objloader.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="PrimitivePolygon.h" />
+    <ClInclude Include="Pyramid.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PrimitiveMesh.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="ThreePyramid.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertexshader.vert">

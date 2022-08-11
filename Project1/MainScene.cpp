@@ -1,12 +1,16 @@
 #include "MainScene.h"
 
 #include "Cube.h"
+#include "Pyramid.h"
+#include "ThreePyramid.h"
+#include "Plane.h"
+#include "PrimitivePolygon.h"
 #include <iostream>
 
 void MainScene::GenerateMeshes()
 {
 	std::shared_ptr<Model> cube = std::make_shared<Model>();
-	std::shared_ptr<Mesh> c = std::make_shared<Cube>();
+	std::shared_ptr<Mesh> c = std::make_shared<PrimitivePolygon>();
 	(*c).AddTransform([](glm::mat4 model) {
 		return glm::rotate(
 			model,
