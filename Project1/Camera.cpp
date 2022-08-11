@@ -27,15 +27,20 @@ void Camera::Process()
 
 glm::vec3 Camera::FlatFront()
 {
-	float x = front.z == 0 ? 1 : front.z;
-	return //front;
-	// TODO: Do something so we only
-	// move on the x, z axis, not on the y
+	// Fix for camera speed when facing straight down
+	float x = front.x;
+	float z = front.z;
+
+	float total = abs(x) + abs(z);
+	if (total < 0.0001)
+		x = 1.0;
+	else if (total < 1)
 	{
-		front.x,
-		0,
-		-1
-	};
+		x *= (1 / total);
+		z *= (1 / total);
+	}
+
+	return { x, 0, z };
 }
 
 glm::mat4 Camera::View()

@@ -78,7 +78,7 @@ void MainScene::SetWalkControls()
 	keyHandler.AddKey('v', [&](float speed) {
 		(*camera).position = { 0, 4, 0 };
 		
-		(*camera).pitch = -90.0;
+		(*camera).pitch = -89.0;
 		(*camera).yaw = 0.0;
 		(*camera).roll = 90.0;
 	});
