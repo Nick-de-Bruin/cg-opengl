@@ -77,3 +77,8 @@ void PrimitiveMesh::SetUniforms(const glm::mat4& view)
 	//glUniform1f(simple_uniform_mat_power, material.specular_power);
 	//glUniform3fv(simple_uniform_color, 1, glm::value_ptr(color));
 }
+
+PrimitiveMesh::PrimitiveMesh() : Mesh() { }
+
+PrimitiveMesh::PrimitiveMesh(float x, float y, float z)
+    : Mesh(x, y, z) { }

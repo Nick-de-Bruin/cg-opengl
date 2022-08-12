@@ -13,7 +13,15 @@ void ImportedObj::Render(const glm::mat4& view)
 	glBindVertexArray(0);
 }
 
-ImportedObj::ImportedObj(const char* path)
+ImportedObj::ImportedObj(const char* path) 
+	: ImportedObj(path, 0, 0, 0) { }
+
+ImportedObj::ImportedObj(const char* objPath, const char* texturePath)
+	: ImportedObj(objPath, texturePath, 0, 0, 0) { }
+
+ImportedObj::ImportedObj(const char* path, 
+	float x, float y, float z)
+	: Mesh(x, y, z)
 {
 	glGenVertexArrays(1, &vao);
 	loadOBJ(path, vertices, uvs, normals);
@@ -23,7 +31,9 @@ ImportedObj::ImportedObj(const char* path)
 	BindUVs();
 }
 
-ImportedObj::ImportedObj(const char* objPath, const char* texturePath)
+ImportedObj::ImportedObj(const char* objPath, const char* texturePath, 
+	float x, float y, float z)
+	: Mesh(x, y, z)
 {
 	glGenVertexArrays(1, &vao);
 	loadOBJ(objPath, vertices, uvs, normals);

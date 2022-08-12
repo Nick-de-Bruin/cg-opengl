@@ -13,5 +13,9 @@ protected:
 	);
 
 	void SetUniforms(const glm::mat4& view);
+
+public:
+	PrimitiveMesh();
+	PrimitiveMesh(float x, float y, float z);
 };
 

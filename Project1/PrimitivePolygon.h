@@ -18,5 +18,6 @@ public:
     void Render(const glm::mat4& view);
 
     PrimitivePolygon();
+    PrimitivePolygon(float x, float y, float z);
 };
 

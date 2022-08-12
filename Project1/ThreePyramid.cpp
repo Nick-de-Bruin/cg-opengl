@@ -35,7 +35,10 @@ std::vector<GLushort> ThreePyramid::elements = {
 
 GLuint ThreePyramid::GetVao() { return vao; }
 
-ThreePyramid::ThreePyramid() : PrimitiveMesh()
+ThreePyramid::ThreePyramid() : ThreePyramid(0, 0, 0) {}
+
+ThreePyramid::ThreePyramid(float x, float y, float z) 
+	: PrimitiveMesh(x, y, z)
 {
 	if (!initialized)
 	{

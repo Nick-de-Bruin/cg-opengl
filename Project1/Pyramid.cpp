@@ -36,7 +36,10 @@ std::vector<GLushort> Pyramid::elements = {
 
 GLuint Pyramid::GetVao() { return vao; }
 
-Pyramid::Pyramid() : PrimitiveMesh()
+Pyramid::Pyramid() : Pyramid(0, 0, 0) {}
+
+Pyramid::Pyramid(float x, float y, float z) 
+	: PrimitiveMesh(x, y, z)
 {
 	if (!initialized)
 	{

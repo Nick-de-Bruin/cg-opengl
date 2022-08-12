@@ -23,7 +23,10 @@ std::vector<GLushort> Plane::elements = {
 
 GLuint Plane::GetVao() { return vao; }
 
-Plane::Plane() : PrimitiveMesh()
+Plane::Plane() : Plane(0, 0, 0) {}
+
+Plane::Plane(float x, float y, float z) 
+	: PrimitiveMesh(x, y, z)
 {
 	if (!initialized)
 	{

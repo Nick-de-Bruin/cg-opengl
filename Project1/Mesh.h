@@ -52,6 +52,7 @@ protected:
 
 public:
 	Mesh();
+	Mesh(float x, float y, float z);
 	~Mesh();
 
 	static void Init(GLuint& program_id, GLuint& simple_program_id);

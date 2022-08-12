@@ -19,5 +19,6 @@ public:
     void Render(const glm::mat4& view);
 
     Cube();
+    Cube(float x, float y, float z);
 };
 

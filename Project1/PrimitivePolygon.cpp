@@ -41,7 +41,10 @@ std::vector<GLushort> PrimitivePolygon::elements = {
 
 GLuint PrimitivePolygon::GetVao() { return vao; }
 
-PrimitivePolygon::PrimitivePolygon() : PrimitiveMesh()
+PrimitivePolygon::PrimitivePolygon() : PrimitivePolygon(0, 0, 0) {}
+
+PrimitivePolygon::PrimitivePolygon(float x, float y, float z) 
+	: PrimitiveMesh(x, y, z)
 {
 	if (!initialized)
 	{

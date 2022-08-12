@@ -41,7 +41,10 @@ std::vector<GLushort> Cube::elements = {
 
 GLuint Cube::GetVao() { return vao; }
 
-Cube::Cube() : PrimitiveMesh()
+Cube::Cube() : Cube(0, 0, 0) {}
+
+Cube::Cube(float x, float y, float z) 
+	: PrimitiveMesh(x, y, z)
 {
     if (!initialized)
     {

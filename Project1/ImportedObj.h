@@ -33,4 +33,8 @@ public:
 
     ImportedObj(const char* path);
     ImportedObj(const char* objPath, const char* texturePath);
+    ImportedObj(const char* path,
+        float x, float y, float z);
+    ImportedObj(const char* objPath, const char* texturePath,
+        float x, float y, float z);
 };

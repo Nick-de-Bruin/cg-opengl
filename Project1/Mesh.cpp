@@ -30,6 +30,11 @@ Mesh::Mesh()
 
 Mesh::~Mesh() { }
 
+Mesh::Mesh(float x, float y, float z) : Mesh()
+{
+    glm::translate(model, { x, y, z });
+}
+
 GLuint Mesh::GetTextureId() { return 0; }
 
 void Mesh::Render(const glm::mat4 &view)

@@ -18,5 +18,6 @@ public:
     void Render(const glm::mat4& view);
 
     Plane();
+    Plane(float x, float y, float z);
 };
 
