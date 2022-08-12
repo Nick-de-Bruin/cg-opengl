@@ -7,6 +7,7 @@
 #include "Plane.h"
 #include "PrimitivePolygon.h"
 // End primitives
+#include "ImportedObj.h"
 
 void MainScene::GenerateMeshes()
 {
@@ -88,7 +89,16 @@ void MainScene::GenerateMeshes()
 #pragma endregion cube
 
 #pragma region floor
-
+	for (int i = -5; i < 5; i++)
+	{
+		for (int j = -5; j < 5; j++)
+		{
+			std::shared_ptr<Mesh> floor_mesh = std::make_shared<ImportedObj>(
+				"box.obj", "" /*Texture!*/, i * 2, 0, j * 2);
+			glm::scale((*floor_mesh).model, {2, 0, 2});
+			(*floor).AddMesh(floor_mesh);
+		}
+	}
 #pragma endregion floor
 
 #pragma region walls
