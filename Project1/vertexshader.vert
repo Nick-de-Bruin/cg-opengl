@@ -8,6 +8,8 @@ uniform vec3 light_pos;
 // Per-vertex inputs
 in vec3 position;
 in vec3 normal;
+in vec2 uv;
+out vec2 UV;
 
 out VS_OUT
 {
@@ -29,6 +31,8 @@ void main()
 
     // Calculate view vector;
     vs_out.V = -P.xyz;
+
+    UV = uv;
 
     // Calculate the clip-space position of each vertex
     gl_Position = projection * P;

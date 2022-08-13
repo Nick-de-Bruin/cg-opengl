@@ -177,9 +177,6 @@
     <None Include="simplefragmentshader.frag" />
     <None Include="simplevertexshader.vert" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="w.bmp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

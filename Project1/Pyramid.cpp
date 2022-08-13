@@ -52,6 +52,8 @@ Pyramid::Pyramid(float x, float y, float z)
 
 void Pyramid::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
 	Mesh::Render(view);
 
 	glBindVertexArray(this->GetVao());

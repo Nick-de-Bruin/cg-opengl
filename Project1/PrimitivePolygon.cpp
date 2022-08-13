@@ -57,6 +57,8 @@ PrimitivePolygon::PrimitivePolygon(float x, float y, float z)
 
 void PrimitivePolygon::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
 	Mesh::Render(view);
 
 	glBindVertexArray(this->GetVao());

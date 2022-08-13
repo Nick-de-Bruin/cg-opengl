@@ -31,9 +31,6 @@
     <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{72076aa4-f2d0-4eb7-a50f-8081f69e788c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{d46b4dc8-9ba7-4fda-b44d-d080850bed8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Meshes\Primitives">
       <UniqueIdentifier>{78243c8d-c71d-4eee-a4de-5ec91632d301}</UniqueIdentifier>
     </Filter>
@@ -165,10 +162,5 @@
     <Text Include="vertexshader.vert">
       <Filter>Resource Files\Vertex Shaders</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="w.bmp">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
   </ItemGroup>
 </Project>

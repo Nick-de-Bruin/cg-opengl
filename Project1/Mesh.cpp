@@ -13,13 +13,9 @@ GLuint Mesh::uniform_mat_specular = 0;
 GLuint Mesh::uniform_mat_power = 0;
 GLuint Mesh::uniform_mv = 0;
 GLuint Mesh::uniform_color = 0;
+GLuint Mesh::uniform_texsampler = 0;
 
-//GLuint Mesh::simple_uniform_mat_ambient = 0;
-//GLuint Mesh::simple_uniform_mat_diffuse = 0;
-//GLuint Mesh::simple_uniform_mat_specular = 0;
-//GLuint Mesh::simple_uniform_mat_power = 0;
 GLuint Mesh::simple_uniform_mv = 0;
-//GLuint Mesh::simple_uniform_color = 0;
 
 
 Mesh::Mesh()
@@ -32,15 +28,13 @@ Mesh::~Mesh() { }
 
 Mesh::Mesh(float x, float y, float z) : Mesh()
 {
-    glm::translate(model, { x, y, z });
+    model = glm::translate(model, glm::vec3(x, y, z));
 }
 
 GLuint Mesh::GetTextureId() { return 0; }
 
 void Mesh::Render(const glm::mat4 &view)
 {
-    glUseProgram(this->GetProgramId());
-
     for (std::function<glm::mat4(glm::mat4)> transform : transforms) 
         model = transform(model);
 
@@ -59,14 +53,10 @@ void Mesh::Init(GLuint& program_id, GLuint& simple_program_id)
     uniform_mat_specular = glGetUniformLocation(program_id, "mat_specular");
     uniform_mv = glGetUniformLocation(program_id, "mv");
     uniform_color = glGetUniformLocation(program_id, "color");
+    uniform_texsampler = glGetUniformLocation(program_id, "texsampler");
 
     // Set simple program IDs
-    //simple_uniform_mat_ambient = glGetUniformLocation(simple_program_id, "mat_ambient");
-    //simple_uniform_mat_diffuse = glGetUniformLocation(simple_program_id, "mat_diffuse");
-    //simple_uniform_mat_power = glGetUniformLocation(simple_program_id, "mat_power");
-    //simple_uniform_mat_specular = glGetUniformLocation(simple_program_id, "mat_specular");
     simple_uniform_mv = glGetUniformLocation(simple_program_id, "mv");
-    //simple_uniform_color = glGetUniformLocation(simple_program_id, "color");
 }
 
 // Color in

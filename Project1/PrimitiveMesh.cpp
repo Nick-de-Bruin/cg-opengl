@@ -71,14 +71,15 @@ void PrimitiveMesh::SetUniforms(const glm::mat4& view)
 
 	// Bind uniforms
 	glUniformMatrix4fv(simple_uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
-	//glUniform3fv(simple_uniform_mat_ambient, 1, glm::value_ptr(material.ambient_color));
-	//glUniform3fv(simple_uniform_mat_diffuse, 1, glm::value_ptr(material.diffuse_color));
-	//glUniform3fv(simple_uniform_mat_specular, 1, glm::value_ptr(material.specular));
-	//glUniform1f(simple_uniform_mat_power, material.specular_power);
-	//glUniform3fv(simple_uniform_color, 1, glm::value_ptr(color));
 }
 
-PrimitiveMesh::PrimitiveMesh() : Mesh() { }
+PrimitiveMesh::PrimitiveMesh() : Mesh() 
+{ 
+    glUseProgram(this->GetProgramId());
+}
 
 PrimitiveMesh::PrimitiveMesh(float x, float y, float z)
-    : Mesh(x, y, z) { }
+    : Mesh(x, y, z) 
+{
+    glUseProgram(this->GetProgramId());
+}

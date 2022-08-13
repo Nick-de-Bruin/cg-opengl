@@ -57,6 +57,8 @@ Cube::Cube(float x, float y, float z)
 
 void Cube::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
     Mesh::Render(view);
 
     glBindVertexArray(this->GetVao());

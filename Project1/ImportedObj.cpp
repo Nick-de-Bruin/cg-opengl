@@ -1,4 +1,6 @@
 #include "ImportedObj.h"
+#include <string>
+#include <iostream>
 
 GLuint ImportedObj::GetVao() { return vao; }
 GLuint ImportedObj::GetProgramId() { return program_id; }
@@ -6,7 +8,15 @@ GLuint ImportedObj::GetTextureId() { return texture_id; }
 
 void ImportedObj::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
 	Mesh::Render(view);
+
+	//GLint p = 0;
+	//glGetIntegerv(GL_CURRENT_PROGRAM, &p);
+	//
+	//std::cout << "Desired p: " << this->GetProgramId() << std::endl;
+	//std::cout << " Actual p: " << p << std::endl;
 
 	glBindVertexArray(this->GetVao());
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
@@ -23,8 +33,13 @@ ImportedObj::ImportedObj(const char* path,
 	float x, float y, float z)
 	: Mesh(x, y, z)
 {
+	glUseProgram(this->GetProgramId());
+
+	std::string objFolder = "Models/";
+	objFolder.append(path);
 	glGenVertexArrays(1, &vao);
-	loadOBJ(path, vertices, uvs, normals);
+	loadOBJ(objFolder.c_str(),
+		vertices, uvs, normals);
 	SetColor(162, 164, 164);
 	BindVertices();
 	BindNormals();
@@ -35,8 +50,13 @@ ImportedObj::ImportedObj(const char* objPath, const char* texturePath,
 	float x, float y, float z)
 	: Mesh(x, y, z)
 {
+	glUseProgram(this->GetProgramId());
+
+	std::string objFolder = "Models/";
+	objFolder.append(objPath);
 	glGenVertexArrays(1, &vao);
-	loadOBJ(objPath, vertices, uvs, normals);
+	loadOBJ(objFolder.c_str(),
+		vertices, uvs, normals);
 	SetTexture(texturePath);
 	BindVertices();
 	BindNormals();
@@ -127,7 +147,9 @@ void ImportedObj::SetUniforms(const glm::mat4& view)
 	glm::mat4 mv = view * model;
 
 	// Bind textures
+	glActiveTexture(GL_TEXTURE0); // Match up with bind uniform
 	glBindTexture(GL_TEXTURE_2D, texture_id);
+	glUniform1i(uniform_texsampler, 0);
 
 	// Bind uniforms
 	glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
@@ -140,14 +162,27 @@ void ImportedObj::SetUniforms(const glm::mat4& view)
 
 void ImportedObj::SetColor(float r, float g, float b)
 {
+	glUseProgram(this->GetProgramId());
+
 	// Set to base white texture
-	texture_id = loadBMP("w.bmp");
+	texture_id = loadBMP("Textures/w.bmp");
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
 	color = glm::vec3(r / 255, g / 255, b / 255);
 }
 
 void ImportedObj::SetTexture(const char* texturePath)
 {
-	texture_id = loadBMP(texturePath);
+	glUseProgram(this->GetProgramId());
+
+	std::string path = "Textures/";
+	path.append(texturePath);
+	texture_id = loadBMP(path.c_str());
+
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
 	// Set color to render the texture fully
 	color = glm::vec3(255, 255, 255);
 }

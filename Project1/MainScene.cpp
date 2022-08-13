@@ -9,6 +9,8 @@
 // End primitives
 #include "ImportedObj.h"
 
+#include <iostream>
+
 void MainScene::GenerateMeshes()
 {
 	std::shared_ptr<Model> cube_with_roof = std::make_shared<Model>(); // Rotate
@@ -94,8 +96,8 @@ void MainScene::GenerateMeshes()
 		for (int j = -5; j < 5; j++)
 		{
 			std::shared_ptr<Mesh> floor_mesh = std::make_shared<ImportedObj>(
-				"box.obj", "" /*Texture!*/, i * 2, 0, j * 2);
-			glm::scale((*floor_mesh).model, {2, 0, 2});
+				"box.obj", "Yellobrk.bmp", i * 10, -1.0, j * 10);
+			(*floor_mesh).model = glm::scale((*floor_mesh).model, glm::vec3(10, 1, 10));
 			(*floor).AddMesh(floor_mesh);
 		}
 	}
@@ -109,11 +111,11 @@ void MainScene::GenerateMeshes()
 
 #pragma endregion pillars
 
-	AddModel(cube_with_roof);
-	AddModel(house);
-	AddModel(pyramids);
-	AddModel(plane);
-	AddModel(cube);
+	//AddModel(cube_with_roof);
+	//AddModel(house);
+	//AddModel(pyramids);
+	//AddModel(plane);
+	//AddModel(cube);
 
 	AddModel(floor);
 	AddModel(walls);
@@ -198,7 +200,7 @@ void MainScene::SetWalkControls()
 }
 
 MainScene::MainScene(const int &width, const int &height)
-{
+{	
 	program_id = glsl::makeShaderProgram(
 		glsl::makeVertexShader(
 			glsl::readFile("vertexshader.vert")),

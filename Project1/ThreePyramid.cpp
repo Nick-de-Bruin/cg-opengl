@@ -51,6 +51,8 @@ ThreePyramid::ThreePyramid(float x, float y, float z)
 
 void ThreePyramid::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
 	Mesh::Render(view);
 
 	glBindVertexArray(this->GetVao());

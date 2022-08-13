@@ -39,6 +39,8 @@ Plane::Plane(float x, float y, float z)
 
 void Plane::Render(const glm::mat4& view)
 {
+	glUseProgram(this->GetProgramId());
+
 	Mesh::Render(view);
 
 	glBindVertexArray(this->GetVao());

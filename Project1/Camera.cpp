@@ -55,7 +55,7 @@ glm::mat4 Camera::View()
 
 Camera::Camera() 
 { 
-	position = glm::vec3(0.0, 0.0, 3.0);
+	position = glm::vec3(0.0, 1.75, 3.0);
 	front = glm::vec3(0.0, 0.0, -1.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
 
