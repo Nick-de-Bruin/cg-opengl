@@ -32,37 +32,52 @@ protected:
 	static GLuint uniform_mv;
 	static GLuint uniform_color;
 	static GLuint uniform_texsampler;
+
 	static GLuint simple_uniform_mv;
+	static GLuint simple_uniform_color;
 
 	glm::vec3 color;
 
-	// So we can set a single VAO for objects that only
-	// need one; Cubes, for example, can all be rendered
-	// with the same static VAO, but different models
+	// Returns the VAO of the current object
 	virtual GLuint GetVao() = 0;
+	// Returns the program ID of the current object
 	virtual GLuint GetProgramId() = 0;
+	// Returns the texture id of the current object
 	virtual GLuint GetTextureId();
 
+	// Sets the uniform for the current object
+	// Takes in the view from the current camera
 	virtual void SetUniforms(const glm::mat4& view) = 0;
 
 public:
+	// Creates an empty mesh
 	Mesh();
+	// Creates an empty mesh with a position
+	// As floats: x, y, z
 	Mesh(float x, float y, float z);
 	~Mesh();
 
+	// Initializes the static variables
+	// Takes in:
+	// GLuint: program_id for the main program
+	// GLuint: simple_program_id for the primitive mesges
 	static void Init(GLuint& program_id, GLuint& simple_program_id);
 
+	// Renders the object
+	// Takes a mat4: The view of the current camera
 	virtual void Render(const glm::mat4 &view);
+
+	// Sets the colour of the current object:
+	// Takes an r, g, b, value as floats
 	virtual void SetColor(float r, float g, float b);
 
+	// Adds a transform to the current model, to be played
+	// every frame. Takes a function that returns and receives
+	// a mat4, the model of the object
 	void AddTransform(std::function<glm::mat4(glm::mat4)> func);
 
-	// The model we want of the mesh. This includes things
-	// like position and rotation. Public so we can get it 
-	// for transforms outside of the mesh
-	// We keep this in here so we can transform individual
-	// meshes, rather than having to work with entire
-	// models
+	// The mesh's model
 	glm::mat4 model;
+	// The mesh's material
 	Material material;
 };

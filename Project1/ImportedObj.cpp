@@ -23,44 +23,59 @@ void ImportedObj::Render(const glm::mat4& view)
 	glBindVertexArray(0);
 }
 
-ImportedObj::ImportedObj(const char* path) 
+ImportedObj::ImportedObj(const std::string path) 
 	: ImportedObj(path, 0, 0, 0) { }
 
-ImportedObj::ImportedObj(const char* objPath, const char* texturePath)
+ImportedObj::ImportedObj(const std::string objPath, const std::string texturePath)
 	: ImportedObj(objPath, texturePath, 0, 0, 0) { }
 
-ImportedObj::ImportedObj(const char* path, 
+ImportedObj::ImportedObj(const std::string path, 
 	float x, float y, float z)
 	: Mesh(x, y, z)
 {
 	glUseProgram(this->GetProgramId());
 
-	std::string objFolder = "Models/";
-	objFolder.append(path);
-	glGenVertexArrays(1, &vao);
-	loadOBJ(objFolder.c_str(),
-		vertices, uvs, normals);
+	if (obj_map.count(path) > 0)
+		vao = obj_map[path];
+	else
+	{
+		std::string objFolder = "Models/";
+		objFolder.append(path);
+		glGenVertexArrays(1, &vao);
+		loadOBJ(objFolder.c_str(),
+			vertices, uvs, normals);
+		BindVertices();
+		BindNormals();
+		BindUVs();
+
+		obj_map[path] = vao;
+	}
 	SetColor(162, 164, 164);
-	BindVertices();
-	BindNormals();
-	BindUVs();
 }
 
-ImportedObj::ImportedObj(const char* objPath, const char* texturePath, 
+ImportedObj::ImportedObj(const std::string objPath, const std::string texturePath, 
 	float x, float y, float z)
 	: Mesh(x, y, z)
 {
 	glUseProgram(this->GetProgramId());
 
-	std::string objFolder = "Models/";
-	objFolder.append(objPath);
-	glGenVertexArrays(1, &vao);
-	loadOBJ(objFolder.c_str(),
-		vertices, uvs, normals);
+	if (obj_map.count(objPath) > 0)
+		vao = obj_map[objPath];
+	else
+	{
+		std::string objFolder = "Models/";
+		objFolder.append(objPath);
+		glGenVertexArrays(1, &vao);
+		loadOBJ(objFolder.c_str(),
+			vertices, uvs, normals);
+		BindVertices();
+		BindNormals();
+		BindUVs();
+
+		obj_map[objPath] = vao;
+	}
+
 	SetTexture(texturePath);
-	BindVertices();
-	BindNormals();
-	BindUVs();
 }
 
 void ImportedObj::BindVertices()
@@ -164,26 +179,41 @@ void ImportedObj::SetColor(float r, float g, float b)
 {
 	glUseProgram(this->GetProgramId());
 
-	// Set to base white texture
-	texture_id = loadBMP("Textures/w.bmp");
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	if (bmp_map.count("w.bmp") > 0)
+		texture_id = bmp_map["w.bmp"];
+	else
+	{
+		std::string path = "Textures/";
+		path.append("w.bmp");
+		texture_id = loadBMP(path.c_str());
+
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
+		bmp_map["w.bmp"] = texture_id;
+	}
 
 	color = glm::vec3(r / 255, g / 255, b / 255);
 }
 
-void ImportedObj::SetTexture(const char* texturePath)
+void ImportedObj::SetTexture(const std::string texturePath)
 {
 	glUseProgram(this->GetProgramId());
 
-	std::string path = "Textures/";
-	path.append(texturePath);
-	texture_id = loadBMP(path.c_str());
+	if (bmp_map.count(texturePath) > 0)
+		texture_id = bmp_map[texturePath];
+	else
+	{
+		std::string path = "Textures/";
+		path.append(texturePath);
+		texture_id = loadBMP(path.c_str());
 
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
+		bmp_map[texturePath] = texture_id;
+	}
 
 	// Set color to render the texture fully
 	color = glm::vec3(255, 255, 255);
 }
-

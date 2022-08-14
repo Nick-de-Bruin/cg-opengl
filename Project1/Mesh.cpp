@@ -16,6 +16,7 @@ GLuint Mesh::uniform_color = 0;
 GLuint Mesh::uniform_texsampler = 0;
 
 GLuint Mesh::simple_uniform_mv = 0;
+GLuint Mesh::simple_uniform_color = 0;
 
 
 Mesh::Mesh()
@@ -57,6 +58,7 @@ void Mesh::Init(GLuint& program_id, GLuint& simple_program_id)
 
     // Set simple program IDs
     simple_uniform_mv = glGetUniformLocation(simple_program_id, "mv");
+    simple_uniform_color = glGetUniformLocation(simple_program_id, "obj_color");
 }
 
 // Color in

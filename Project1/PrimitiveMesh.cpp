@@ -71,6 +71,7 @@ void PrimitiveMesh::SetUniforms(const glm::mat4& view)
 
 	// Bind uniforms
 	glUniformMatrix4fv(simple_uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+    glUniform3fv(simple_uniform_color, 1, glm::value_ptr(color));
 }
 
 PrimitiveMesh::PrimitiveMesh() : Mesh() 

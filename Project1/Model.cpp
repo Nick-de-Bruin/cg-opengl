@@ -29,3 +29,15 @@ void Model::AddTransform(std::function<glm::mat4(glm::mat4)> func)
 	for (std::shared_ptr<Mesh> mesh : meshes)
 		(*mesh).AddTransform(func);
 }
+
+void Model::Move(glm::vec3 dist)
+{
+	for (std::shared_ptr<Mesh> mesh : meshes)
+		(*mesh).model = glm::translate((*mesh).model, dist);
+}
+
+void Model::Transform(std::function<glm::mat4(glm::mat4)> func)
+{
+	for (std::shared_ptr<Mesh> mesh : meshes)
+		(*mesh).model = func((*mesh).model);
+}
