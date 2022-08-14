@@ -244,7 +244,11 @@ void MainScene::GenerateMeshes()
 #pragma endregion walls
 
 #pragma region pillars
-
+	std::shared_ptr<Mesh> pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "WallRepeating.bmp",
+			0, 0.6, 0);
+	(*pillar).model = glm::scale((*pillar).model, { 0.5, 0.5, 0.5 });
+	(*pillars).AddMesh(pillar);
 #pragma endregion pillars
 
 	AddModel(cube_with_roof);
