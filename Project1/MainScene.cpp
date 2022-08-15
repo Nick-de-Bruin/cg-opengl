@@ -25,6 +25,7 @@ void MainScene::GenerateMeshes()
 	std::shared_ptr<Model> walls = std::make_shared<Model>();
 	// Pillars should also be below the other objects we're placing
 	std::shared_ptr<Model> pillars = std::make_shared<Model>();
+	std::shared_ptr<Model> wall_pillars = std::make_shared<Model>();
 
 #pragma region rotation_functions
 	auto multi_rotation = [](glm::mat4 model) {
@@ -57,7 +58,7 @@ void MainScene::GenerateMeshes()
 	(*cube_with_roof).AddMesh(cube_wroof_cube);
 	(*cube_with_roof).AddMesh(cube_wroof_polygon);
 
-	(*cube_with_roof).Move({ 3, 1.75, 0 });
+	(*cube_with_roof).Move({ 7, 1.75, 0 });
 	(*cube_with_roof).Transform([](glm::mat4 model) {
 		return glm::scale(model, { 0.25, 0.25, 0.25 });
 	});
@@ -67,15 +68,15 @@ void MainScene::GenerateMeshes()
 
 #pragma region house
 	std::shared_ptr<Mesh> house_cube = 
-		std::make_shared<Cube>();
+		std::make_shared<Cube>(-7, 0, 0);
 	std::shared_ptr<Mesh> house_roof = 
-		std::make_shared<PrimitivePolygon>(0, 0.375, 0);
+		std::make_shared<PrimitivePolygon>(-7, 0.375, 0);
 	std::shared_ptr<Mesh> house_chimney = 
-		std::make_shared<Cube>(0, 1.25, 0.125);
+		std::make_shared<Cube>(-7, 1.25, 0.125);
 	std::shared_ptr<Mesh> house_door = 
-		std::make_shared<Cube>(0.25, 1.05, 0.125);
+		std::make_shared<Cube>(-6.75, 1.05, 0.125);
 	std::shared_ptr<Mesh> house_garden_wall = 
-		std::make_shared<Cube>(0.375, 1.35, 0.25);
+		std::make_shared<Cube>(-6.625, 1.35, 0.25);
 
 	(*house_cube).SetColor(200, 60, 60);
 	(*house_roof).SetColor(50, 50, 50);
@@ -111,7 +112,7 @@ void MainScene::GenerateMeshes()
 	(*pyramids).AddMesh(pyramid);
 	(*pyramids).AddMesh(three_pyramid);
 
-	(*pyramids).Move({0, 1.75, -5});
+	(*pyramids).Move({0, 1.75, 7});
 	(*pyramids).Transform([](glm::mat4 model) {
 		return glm::scale(model, { 0.25, 0.25, 0.25 });
 	});
@@ -125,7 +126,7 @@ void MainScene::GenerateMeshes()
 	
 	(*plane).AddMesh(plane_mesh);
 
-	(*plane).Move({ -3, 1.75, 0 });
+	(*plane).Move({ -1, 1.75, -7 });
 	(*plane).Transform([](glm::mat4 model) {
 		return glm::scale(model, { 0.25, 0.25, 0.25 });
 	});
@@ -139,7 +140,7 @@ void MainScene::GenerateMeshes()
 
 	(*cube).AddMesh(cube_mesh);
 
-	(*cube).Move({ 0, 1.75, 5 });
+	(*cube).Move({ 1, 1.75, -7 });
 	(*cube).Transform([](glm::mat4 model) {
 		return glm::scale(model, { 0.25, 0.25, 0.25 });
 	});
@@ -244,12 +245,98 @@ void MainScene::GenerateMeshes()
 #pragma endregion walls
 
 #pragma region pillars
-	std::shared_ptr<Mesh> pillar =
-		std::make_shared<ImportedObj>("Pillar.obj", "WallRepeating.bmp",
-			0, 0.6, 0);
-	(*pillar).model = glm::scale((*pillar).model, { 0.5, 0.5, 0.5 });
-	(*pillars).AddMesh(pillar);
+	std::shared_ptr<Mesh> house_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "CrumpledPaper.bmp",
+			-7, 0.6, 0);
+	std::shared_ptr<Mesh> pyramid_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "DirtyPlaster.bmp",
+			-1, 0.6, 7);
+	std::shared_ptr<Mesh> threepyramid_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "MarbleVeined.bmp",
+			1, 0.6, 7);
+	std::shared_ptr<Mesh> plane_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "Moorish.bmp",
+			-1, 0.6, -7);
+	std::shared_ptr<Mesh> cube_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "MoorishSquare.bmp",
+			1, 0.6, -7);
+	std::shared_ptr<Mesh> cube_wroof_pillar =
+		std::make_shared<ImportedObj>("Pillar.obj", "Relief.bmp",
+			7, 0.6, 0);
+
+	(*pillars).AddMesh(house_pillar);
+	(*pillars).AddMesh(pyramid_pillar);
+	(*pillars).AddMesh(threepyramid_pillar);
+	(*pillars).AddMesh(plane_pillar);
+	(*pillars).AddMesh(cube_pillar);
+	(*pillars).AddMesh(cube_wroof_pillar);
+
+	(*pillars).Transform([](glm::mat4 model) {
+		return glm::scale(model, { 0.5, 0.5, 0.5 });
+	});
 #pragma endregion pillars
+
+#pragma region wall_pillars
+	std::shared_ptr<Mesh> wall_pillar_tr =
+		std::make_shared<ImportedObj>("cylinder32.obj", "SmoothRock.bmp",
+			-9.5, 0, -9.5);
+	(*wall_pillar_tr).model = glm::scale((*wall_pillar_tr).model,
+		{ 0.5, 4.0, 0.5 });
+
+	std::shared_ptr<Mesh> wall_pillarb_tr =
+		std::make_shared<ImportedObj>("cylinder18.obj", "Relief.bmp",
+			-9.5, 0.5, -9.5);
+	(*wall_pillarb_tr).model = glm::scale((*wall_pillar_tr).model,
+		{ 1.1, 0.25, 1.1 });
+
+	(*wall_pillars).AddMesh(wall_pillar_tr);
+	(*wall_pillars).AddMesh(wall_pillarb_tr);
+
+	std::shared_ptr<Mesh> wall_pillar_tl =
+		std::make_shared<ImportedObj>("cylinder32.obj", "SmoothRock.bmp",
+			9.5, 0, -9.5);
+	(*wall_pillar_tl).model = glm::scale((*wall_pillar_tl).model,
+		{ 0.5, 4.0, 0.5 });
+
+	std::shared_ptr<Mesh> wall_pillarb_tl =
+		std::make_shared<ImportedObj>("cylinder18.obj", "Relief.bmp",
+			9.5, 0.5, -9.5);
+	(*wall_pillarb_tl).model = glm::scale((*wall_pillar_tl).model,
+		{ 1.1, 0.25, 1.1 });
+
+	(*wall_pillars).AddMesh(wall_pillar_tl);
+	(*wall_pillars).AddMesh(wall_pillarb_tl);
+
+	std::shared_ptr<Mesh> wall_pillar_bl =
+		std::make_shared<ImportedObj>("cylinder32.obj", "SmoothRock.bmp",
+			9.5, 0, 9.5);
+	(*wall_pillar_bl).model = glm::scale((*wall_pillar_bl).model,
+		{ 0.5, 4.0, 0.5 });
+
+	std::shared_ptr<Mesh> wall_pillarb_bl =
+		std::make_shared<ImportedObj>("cylinder18.obj", "Relief.bmp",
+			9.5, 0.5, 9.5);
+	(*wall_pillarb_bl).model = glm::scale((*wall_pillar_bl).model,
+		{ 1.1, 0.25, 1.1 });
+
+	(*wall_pillars).AddMesh(wall_pillar_bl);
+	(*wall_pillars).AddMesh(wall_pillarb_bl);
+
+	std::shared_ptr<Mesh> wall_pillar_br =
+		std::make_shared<ImportedObj>("cylinder32.obj", "SmoothRock.bmp",
+			-9.5, 0, 9.5);
+	(*wall_pillar_br).model = glm::scale((*wall_pillar_br).model,
+		{ 0.5, 4.0, 0.5 });
+
+	std::shared_ptr<Mesh> wall_pillarb_br =
+		std::make_shared<ImportedObj>("cylinder18.obj", "Relief.bmp",
+			-9.5, 0.5, 9.5);
+	(*wall_pillarb_br).model = glm::scale((*wall_pillar_br).model,
+		{ 1.1, 0.25, 1.1 });
+
+	(*wall_pillars).AddMesh(wall_pillar_br);
+	(*wall_pillars).AddMesh(wall_pillarb_br);
+#pragma endregion wall_pillars;
 
 	AddModel(cube_with_roof);
 	AddModel(house);
@@ -261,6 +348,7 @@ void MainScene::GenerateMeshes()
 	AddModel(walls);
 
 	AddModel(pillars);
+	AddModel(wall_pillars);
 }
 
 void MainScene::GenerateCamera(std::vector<GLuint> ids,
@@ -335,7 +423,7 @@ void MainScene::SetWalkControls()
 			walk_pitch = (*camera).pitch;
 			walk_roll = (*camera).roll;
 
-			(*camera).position = { 0, 10, 0 };
+			(*camera).position = { 0, 19, 0 };
 
 			(*camera).pitch = -89.0;
 			(*camera).yaw = 0.0;

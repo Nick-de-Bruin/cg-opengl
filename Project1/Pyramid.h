@@ -12,12 +12,18 @@ private:
     static std::vector<GLushort> elements;
 
 protected:
+    // Returns the VAO of the object
     GLuint GetVao();
 
 public:
+    // Renders the object
+    // view: mat4 -> The view of the camera
     void Render(const glm::mat4& view);
 
+    // Creates the object at { 0, 0, 0 }
     Pyramid();
+    // Creates the object with given coordinates
+    // x, y, z: float -> The coordinates of the object
     Pyramid(float x, float y, float z);
 };
 
