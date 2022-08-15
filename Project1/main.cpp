@@ -60,5 +60,7 @@ int main(int argc, char** argv)
 
     glutMainLoop();
 
+    while (true) {}
+
     return 0;
 }

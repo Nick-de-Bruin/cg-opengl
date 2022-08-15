@@ -373,11 +373,11 @@ void MainScene::GenerateLights(std::vector<GLuint> ids)
 void MainScene::SetWalkControls() 
 {
 	keyHandler.AddKey('w', [&camera = camera] (float speed) {
-		(* camera).position += speed * (*camera).FlatFront();
+		(*camera).position += speed * (*camera).FlatFront();
 	});
 
 	keyHandler.AddKey('s', [&camera = camera](float speed) {
-		(* camera).position -= speed * (*camera).FlatFront();
+		(*camera).position -= speed * (*camera).FlatFront();
 	});
 
 	keyHandler.AddKey('a', [&camera = camera](float speed) {
@@ -416,7 +416,7 @@ void MainScene::SetWalkControls()
 		(*camera).roll -= speed * 100;
 	});
 
-	keyHandler.AddKey('v', [&](float speed) {
+	keyHandler.AddKey('v', [&, &camera = camera](float speed) {
 		if ((*camera).position.y < 2) {
 			walk_position = (*camera).position;
 			walk_yaw = (*camera).yaw;
