@@ -53,10 +53,10 @@ int main(int argc, char** argv)
 
     scene = MainScene(WIDTH, HEIGHT);
 
-    //ShowWindow(
-    //    GetConsoleWindow(),
-    //    SW_HIDE
-    //);
+    ShowWindow(
+        GetConsoleWindow(),
+        SW_HIDE
+    );
 
     glutMainLoop();
 
